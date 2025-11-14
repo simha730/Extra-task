@@ -31,7 +31,17 @@ else if (id > root->ticketID)
 root->right = insertTicket(root->right, id, issue);
 else
 printf("Ticket ID %d already exists!\n", id);
-
-
 return root;
+}
+// Search for a ticket by ID
+TicketNode* searchTicket(TicketNode *root, int id) {
+if (root == NULL || root->ticketID == id)
+return root;
+
+
+if (id < root->ticketID)
+return searchTicket(root->left, id);
+
+
+return searchTicket(root->right, id);
 }
