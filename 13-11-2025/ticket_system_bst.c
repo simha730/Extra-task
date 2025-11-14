@@ -51,3 +51,44 @@ while (node && node->left != NULL)
 node = node->left;
 return node;
 }
+// Delete (close) a ticket
+TicketNode* deleteTicket(TicketNode *root, int id) {
+if (root == NULL)
+return root;
+
+
+if (id < root->ticketID) {
+root->left = deleteTicket(root->left, id);
+} else if (id > root->ticketID) {
+root->right = deleteTicket(root->right, id);
+} else {
+printf("Ticket Closed: ID=%d, Issue=%s\n", root->ticketID, root->issue);
+
+
+if (root->left == NULL) {
+TicketNode *temp = root->right;
+free(root);
+return temp;
+} else if (root->right == NULL) {
+TicketNode *temp = root->left;
+free(root);
+return temp;
+}
+
+
+TicketNode *temp = findMin(root->right);
+root->ticketID = temp->ticketID;
+strcpy(root->issue, temp->issue);
+root->right = deleteTicket(root->right, temp->ticketID);
+}
+return root;
+}
+
+
+// Inorder traversal to print tickets in sorted order
+void printTickets(TicketNode *root) {
+if (root == NULL) return;
+printTickets(root->left);
+printf("ID=%d, Issue=%s\n", root->ticketID, root->issue);
+printTickets(root->right);
+}
