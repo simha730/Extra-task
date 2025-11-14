@@ -45,3 +45,9 @@ return searchTicket(root->left, id);
 
 return searchTicket(root->right, id);
 }
+// Find the inorder successor (minimum value node)
+TicketNode* findMin(TicketNode *node) {
+while (node && node->left != NULL)
+node = node->left;
+return node;
+}
