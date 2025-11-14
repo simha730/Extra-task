@@ -92,3 +92,31 @@ printTickets(root->left);
 printf("ID=%d, Issue=%s\n", root->ticketID, root->issue);
 printTickets(root->right);
 }
+int main() {
+TicketNode *root = NULL;
+
+
+// Demo operations
+root = insertTicket(root, 102, "Login issue");
+root = insertTicket(root, 56, "Payment failed");
+root = insertTicket(root, 78, "App crash");
+root = insertTicket(root, 150, "Password reset");
+
+
+int searchID = 78;
+TicketNode *found = searchTicket(root, searchID);
+if (found)
+printf("Ticket Found: ID=%d, Issue=%s\n", found->ticketID, found->issue);
+else
+printf("Ticket ID %d not found.\n", searchID);
+
+
+root = deleteTicket(root, 56);
+
+
+printf("\nOpen Tickets (Sorted):\n");
+printTickets(root);
+
+
+return 0;
+}
